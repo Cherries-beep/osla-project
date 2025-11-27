@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django / SQLite artifacts
+db.sqlite3
+*.sqlite3
+/media/
+/staticfiles/
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# Test / coverage reports
+htmlcov/
+.coverage*
+.pytest_cache/
+
+# IDE / tooling
+.idea/
+.vscode/
+*.iml
+
+# OS junk
+.DS_Store
