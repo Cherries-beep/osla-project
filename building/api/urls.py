@@ -1,16 +1,10 @@
 from django.urls import path
-from building.api.views import BuildingViewSet
-
-building = BuildingViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-building_detail = BuildingViewSet.as_view({
-    'get': 'retrieve',
-})
+from building.api.views import BuildingViewSet, OrganizationViewSet
+from rest_framework.routers import DefaultRouter
 
 
-urlpatterns = [
-    path('', building, name='building_list'),
-    path('<int:pk>/', building_detail, name='building_detail')
-]
+router = DefaultRouter()
+router.register(r'buildings', BuildingViewSet, basename='building')
+router.register(r'organizations', OrganizationViewSet, basename='organization')
+
+urlpatterns = router.urls
