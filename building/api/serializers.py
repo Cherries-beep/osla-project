@@ -12,8 +12,8 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
 class BuildingSerializer(serializers.ModelSerializer):
 
-    organizations = OrganizationSerializer(many=True, read_only=True)
-    organization_ids = serializers.PrimaryKeyRelatedField(
+    organizations = OrganizationSerializer(many=True, read_only=True) # только для GET (чтение)
+    organization_ids = serializers.PrimaryKeyRelatedField( 
         many=True,
         write_only=True,
         queryset=Organization.objects.all(),
@@ -31,7 +31,6 @@ class BuildingSerializer(serializers.ModelSerializer):
             "organizations",
             "organization_ids",
             "created_at",
-            "updated_at",
             "updated_at",
         )
         read_only_fields = ("id", "created_at", "updated_at")
