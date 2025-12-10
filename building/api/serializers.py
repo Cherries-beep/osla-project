@@ -4,6 +4,7 @@ from building.models import Building, Organization
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Organization
         fields = ("id", "name", "employees_count", "external_id")
