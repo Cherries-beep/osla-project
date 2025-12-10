@@ -11,9 +11,26 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
 class BuildingSerializer(serializers.ModelSerializer):
 
-    organizations = OrganizationSerializer(many=True) # nested organizations
+    organizations = OrganizationSerializer(many=True, read_only=True)
+    organization_ids = serializers.PrimaryKeyRelatedField(
+        many=True,
+        write_only=True,
+        queryset=Organization.objects.all(),
+        source="organizations"
+    )
 
     class Meta:
         model = Building
-        fields = ("id", "name", "entity", "start_date", "end_date", "created_at", "updated_at", "updated_at")
+        fields = (
+            "id",
+            "name",
+            "entity",
+            "start_date",
+            "end_date",
+            "organizations",
+            "organization_ids",
+            "created_at",
+            "updated_at",
+            "updated_at",
+        )
         read_only_fields = ("id", "created_at", "updated_at")
