@@ -14,8 +14,8 @@ class BuildingViewSet(ModelViewSet):
 
 
     @action(detail=True, methods=['get'], url_path='organizations') # GET /building/buildings/1/organizations/ 
-    def get_organizations(self, request, pk=None):
-        """Получить список организаций объекта (альтернатива nested)"""
+    def get_organizations(self, request, pk=None): # detail=True для конкретного объекта
+        """Получить список организаций объекта"""
         building = self.get_object()
         organizations = building.organizations.all()
         serializer = OrganizationSerializer(organizations, many=True)

@@ -7,13 +7,20 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organization
-        fields = ("id", "name", "employees_count", "external_id")
+        fields = (
+            "id", 
+            "name", 
+            "employees_count", 
+            "external_id",
+            "created_at",
+            "updated_at",
+        )
 
 
 class BuildingSerializer(serializers.ModelSerializer):
 
     organizations = OrganizationSerializer(many=True, read_only=True) # только для GET (чтение)
-    organization_ids = serializers.PrimaryKeyRelatedField( 
+    organization_ids = serializers.PrimaryKeyRelatedField( # (POST/PUT/PATCH). для создания с организациями 
         many=True,
         write_only=True,
         queryset=Organization.objects.all(),

@@ -23,14 +23,13 @@ class Organization(models.Model):
     name = models.CharField(max_length=255)
     employees_count = models.PositiveIntegerField()
     external_id = models.CharField(max_length=255, unique=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)  #  для consistency
+    created_at = models.DateTimeField(auto_now_add=True)  
     updated_at = models.DateTimeField(auto_now=True)    
 
     class Meta:
         ordering = ('-created_at',)
-        verbose_name = 'Организация'
-        verbose_name_plural = 'Организации'
+        verbose_name = 'Организация' # админка
+        verbose_name_plural = 'Организации' # админка
 
 
     def clean(self):
@@ -38,22 +37,22 @@ class Organization(models.Model):
         errors = {}
         
         if len(str(self.name).strip()) < 2:
-            errors['name'] = _('Название должно содержать минимум 2 символа.')
+            errors['name'] = ('Название должно содержать минимум 2 символа.')
         
         if self.employees_count > 100000:
-            errors['employees_count'] = _('Количество сотрудников не может превышать 100000.')
+            errors['employees_count'] = ('Количество сотрудников не может превышать 100000.')
         if self.employees_count < 1:
-            errors['employees_count'] = _('Количество сотрудников должно быть положительным числом.')
+            errors['employees_count'] = ('Количество сотрудников должно быть положительным числом.')
 
         if not str(self.external_id).strip():
-            errors['external_id'] = _('External ID не может быть пустым.')
+            errors['external_id'] = ('External ID не может быть пустым.')
     
         if errors:
             raise ValidationError(errors)
     
     def save(self, *args, **kwargs):
         """Автоматически вызывает валидацию перед сохранением"""
-        self.full_clean()
+        self.full_clean() # встроеннная проверка типов, очистка и проверка уникальности
         super().save(*args, **kwargs)
     
     def __str__(self):

@@ -32,3 +32,32 @@
 
 ## Как отправить результат
 Пришлите ссылку на репозиторий или архив с выполненным заданием. Если добавляете воркфлоу CI/CD или дополнительные зависимости, не забудьте описать их в README.
+
+
+
+
+## Расширенная функциональность
+
+### Новая модель Organization
+- Поля: `name`, `employees_count`, `external_id` (уникальный)
+- Валидация: название мин. 2 символа, сотрудников не более 100000
+
+### Связь Building-Organization
+Один объект строительства может быть связан с несколькими организациями через поле `organizations`.
+
+### API Endpoints
+
+#### Организации
+- `GET /building/organizations/` - список с фильтрацией по name, external_id, employees_count
+- `POST /building/organizations/` - создание
+- `GET/PUT/PATCH/DELETE /building/organizations/{id}/` - детали, обновление, удаление
+
+#### Объекты строительства
+- `GET /building/buildings/` - список с фильтрацией по name, entity, organizations
+- `POST /building/buildings/` - создание (передать `organization_ids: [1, 2]`)
+- `GET/PUT/PATCH/DELETE /building/buildings/{id}/` - детали, обновление, удаление
+
+#### Управление связями (дополнительно)
+- `GET /building/buildings/{id}/organizations/` - получить организации объекта
+- `POST /building/buildings/{id}/organizations/{org_id}/` - добавить связь
+- `DELETE /building/buildings/{id}/organizations/{org_id}/` - удалить связь
