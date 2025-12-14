@@ -39,7 +39,7 @@ class Organization(models.Model):
     class Meta:
         """Класс для метаданных модели"""
 
-        ordering = "-created_at"
+        ordering = ("-created_at",)
         verbose_name = "Организация"  # админка
         verbose_name_plural = "Организации"  # админка
 
