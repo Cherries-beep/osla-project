@@ -1,10 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
-
+from rest_framework.response import Response
 from building.api.filters import BuildingFilter
 from building.api.serializers import BuildingSerializer, OrganizationSerializer
 from building.models import Building, Organization
+from rest_framework import status
 
 
 class BuildingViewSet(ModelViewSet):
@@ -15,9 +16,7 @@ class BuildingViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = BuildingFilter
 
-    @action(
-        detail=True, methods=["get"], url_path="organizations"
-    )  # GET /building/buildings/1/organizations/
+    @action(detail=True, methods=["get"], url_path="organizations")  # GET /building/buildings/1/organizations/
     def get_organizations(self, request, pk=None):
         """Получить список организаций конкретного объекта
 
